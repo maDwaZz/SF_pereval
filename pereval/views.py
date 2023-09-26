@@ -27,7 +27,7 @@ from pereval.serializers import *
 
 @api_view(['POST'])
 def submitData(request):
-    serializer = PerevalSerializer(data=request.data)
+    serializer = PerevalAddedSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
     serializer.save()
     return Response({'pereval_item': serializer.data})
