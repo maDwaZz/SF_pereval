@@ -6,7 +6,7 @@ class PerevalUser(models.Model):
     username = models.CharField(max_length=50, verbose_name='Имя пользователя')
     first_name = models.CharField(max_length=50, verbose_name='Имя')
     last_name = models.CharField(max_length=50, verbose_name='Фамилия')
-    email = models.EmailField(blank=False, unique=True, verbose_name='Электронная почта')
+    email = models.EmailField(blank=False, verbose_name='Электронная почта')
 
     def __str__(self):
         return self.username
@@ -38,7 +38,7 @@ class PerevalAdded(models.Model):
 
     def __str__(self):
         if self.beauty_title:
-            return f'{self.beauty_title} {self.title}'
+            return f'{self.id} {self.beauty_title} {self.title}'
         else:
             return self.title
 
@@ -63,11 +63,12 @@ class Coords(models.Model):
     
 
 class PerevalImages(models.Model):
-    pereval = models.ForeignKey(PerevalAdded, on_delete=models.CASCADE, verbose_name='Объект')
+    pereval = models.ForeignKey(PerevalAdded, blank=True, on_delete=models.CASCADE, verbose_name='Объект', related_name='images')
     data = models.ImageField(blank=True, upload_to='photos/%Y/%m/%d/', verbose_name='Фото')
+    title = models.CharField(max_length=255, blank=True, verbose_name='Название')
 
     def __str__(self):
-        return f'ID фото: {str(self.id)}'
+        return f'{str(self.id)} {self.title}'
 
     class Meta:
         db_table = 'pereval_images'
