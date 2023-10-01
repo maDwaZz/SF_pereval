@@ -1,10 +1,21 @@
 from django.shortcuts import render
+from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from pereval.models import *
 from pereval.serializers import *
+
+
+class PerevalViewSet(viewsets.ModelViewSet):
+    queryset = PerevalAdded.objects.all()
+    serializer_class = PerevalAddedSerializer
+
+
+
+
+
 
 
 # class PerevalAPIView(APIView):
@@ -23,11 +34,11 @@ from pereval.serializers import *
 #         pereval_serializer.save()
 #
 #         return Response({'pereval_item': pereval_serializer.data})
-
-
-@api_view(['POST'])
-def submitData(request):
-    serializer = PerevalAddedSerializer(data=request.data)
-    serializer.is_valid(raise_exception=True)
-    serializer.save()
-    return Response({'pereval_item': serializer.data})
+#
+#
+# @api_view(['POST'])
+# def submitData(request):
+#     serializer = PerevalAddedSerializer(data=request.data)
+#     serializer.is_valid(raise_exception=True)
+#     serializer.save()
+#     return Response({'pereval_item': serializer.data})

@@ -64,7 +64,7 @@ class Coords(models.Model):
 
 class PerevalImages(models.Model):
     pereval = models.ForeignKey(PerevalAdded, on_delete=models.CASCADE, verbose_name='Объект')
-    data = models.ImageField(upload_to='photos/%Y/%m/%d/', verbose_name='Фото')
+    data = models.ImageField(blank=True, upload_to='photos/%Y/%m/%d/', verbose_name='Фото')
 
     def __str__(self):
         return f'ID фото: {str(self.id)}'
